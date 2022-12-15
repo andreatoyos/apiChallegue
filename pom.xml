@@ -53,7 +53,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				 <configuration>
-	                <mainClass>com.challengue.ChallengueApplication</mainClass>
+	                <mainClass>com.challengue.apirest.ChallengueApplication</mainClass>
 	            </configuration>
 			</plugin>
 		</plugins>

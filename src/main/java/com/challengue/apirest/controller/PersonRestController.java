@@ -1,6 +1,7 @@
 package com.challengue.apirest.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.challengue.apirest.entity.Person;
+import com.challengue.apirest.entity.Relationship;
+import com.challengue.apirest.entity.RelationshipPK;
 import com.challengue.apirest.service.PersonService;
+import com.challengue.apirest.service.RelationshipService;
 
 
 @RestController
@@ -25,6 +29,8 @@ public class PersonRestController {
 
     @Autowired
     private PersonService personService;
+    @Autowired
+    private RelationshipService relationshipService;
 
     /*http://127.0.0.1:8080/apiRest/persons*/
     @GetMapping("/persons")
@@ -58,6 +64,23 @@ public class PersonRestController {
         personService.save(person);
         return person;
     }
+    
+    /*http://127.0.0.1:8080/apiRest/persons/:id1/relacion/:id2  */
+    @PostMapping("/persons/{id1}/{relation}/{id2}")
+    public Relationship addPersonRelationship(@PathVariable Integer id1, @PathVariable String relation, @PathVariable Integer id2) {
+    	Relationship relationship = new Relationship(new RelationshipPK(relation, personService.findById(id1), personService.findById(id2)));
+    	relationshipService.save(relationship);
+    	return relationship;
+    }
 
+    /* http://127.0.0.1:8080/apiRest/relationships/ */
+    @GetMapping("/relationships/{id1}/{id2}")
+    public List<Relationship> getRelationships(@PathVariable Integer id1, @PathVariable Integer id2){
+    	List<Relationship> relations = relationshipService.findByPerson1AndPerson2(personService.findById(id1) ,personService.findById(id2));
+    	if (relations.isEmpty())
+    		throw new RuntimeException("No existe relacion entre personas "+id1+" y "+id2);
+    	else
+    		return relations;
+    }
 
 }

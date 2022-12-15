@@ -1,15 +1,10 @@
 package com.challengue.apirest.entity;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
@@ -47,10 +42,10 @@ public class Person {
     @Column(name="email", length = 100, nullable = false)
     @Email
     private String email;
-   	
+ 	
 	public Person() {
 	}
-
+	
 	public int getId() {
 		return id;
 	}
@@ -58,7 +53,7 @@ public class Person {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public Integer getDni() {
 		return dni;
 	}
@@ -109,7 +104,7 @@ public class Person {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	
 }
     
     
